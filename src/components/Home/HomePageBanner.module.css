@@ -1,0 +1,129 @@
+/* .banner {
+    width: 100%;
+    height: 45rem;
+    margin-bottom: 2rem;
+}
+
+.bannerInner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bannerImg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    object-fit: cover;
+}
+
+.bannerTxt {
+    position: absolute;
+    color: var(--color-white);
+}
+
+.title {
+    font-size: var(--font-img-title);
+    font-weight: bold;
+    text-align: center;
+    color: var(--color-white);
+}
+
+.tag {
+    font-size: 2rem;
+    text-align: center;
+    padding:  1rem 10rem;
+}
+
+.bld {
+    font-weight: bold;
+}
+
+.searchbar {
+    margin: 1rem 0;
+}
+
+@media all and (max-width: 480px) {
+    .title {
+        font-size: 1.9rem;
+        font-weight: bold;
+        text-align: center;
+        color: var(--color-white);
+    }
+
+    .tag {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+} */
+
+/* HomePageBanner.module.css */
+
+.banner {
+    width: 100%;
+    height: 45rem;
+    margin-bottom: 2rem;
+    position: relative; /* To position text over image */
+}
+
+.bannerInner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.bannerImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(60%); /* Darken the image to make text more readable */
+}
+
+.bannerTxt {
+    position: absolute;
+    color: var(--color-white);
+    text-align: center;
+    padding: 1rem;
+    max-width: 90%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better text readability */
+    border-radius: 10px; /* Rounded corners for the text block */
+}
+
+.title {
+    font-size: 3rem; /* Adjust size for better visibility */
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.tag {
+    font-size: 1.5rem; /* Adjust font size for readability */
+    line-height: 1.6;
+    padding: 0 1rem;
+}
+
+@media all and (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .tag {
+        font-size: 1.2rem;
+        padding: 0 0.5rem;
+    }
+}
+
+@media all and (max-width: 480px) {
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .tag {
+        font-size: 1rem;
+        padding: 0 0.5rem;
+    }
+}

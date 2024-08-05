@@ -16,15 +16,18 @@ import { useCart } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { url } from '../../Constant/constant';
-import { AuthContext } from '../../main';
+
 import CheckoutModal from '../Model/CheckoutModel';
+import { AuthContext } from '../../context/AuthContext';
+import NavigationBar from '../Navbars/NavigationBar/NavigationBar';
 
 const CheckoutPage = () => {
     const { cart, removeFromCart, decreaseQuantity, increaseQuantity, setCart } = useCart();
     const [cartItems, setCartItems] = useState(cart);
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    const { auth } = useContext(AuthContext);
+    const [isLoggedIn, setIsLoggedIn] = useState(auth.isLoggedIn);
     const [message, setMessage] = useState("")
     const [messageType, setMessageType] = useState()
     useEffect(() => {
@@ -48,13 +51,13 @@ const CheckoutPage = () => {
     };
 
     const handleBack = () => {
-        navigate('/');
+        navigate('/products');
     };
     const handlePlaceOrder = async () => {
         if (isLoggedIn) {
             const { data } = await axios.post(`${url}/orders`, cart, {
                 headers: {
-                    authorization: `Bearer ${isLoggedIn}`
+                    authorization: `Bearer ${auth.token}`
                 }
             });
 
@@ -84,15 +87,16 @@ const CheckoutPage = () => {
             navigate("/login")
         }
     };
-
+    console.log("cartcartcartcart,cart", cartItems)
     return (
-        <div style={{ padding: '40px' }}>
+        <div style={{ padding: '40px', marginTop: '40px' }}>
+            <NavigationBar />
             <CheckoutModal isModalOpen={isModalOpen} message={message} messageType={messageType} />
             <Button
                 startIcon={<ArrowBack />}
                 onClick={handleBack}
                 variant="outlined"
-                sx={{ mb: 2 }}
+                sx={{ mb: 3, mt: 2 }}
             >
                 Back
             </Button>
@@ -144,20 +148,24 @@ const CheckoutPage = () => {
                     ))}
                     <Divider sx={{ my: 2 }} />
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-                        <Typography variant="h6">Total</Typography>
+                        <Typography variant="h6">Total Price</Typography>
                         <Typography variant="h6">${calculateTotal()}</Typography>
                     </Box>
+
                     {
-                        cart.length ? 0 ?? (
-                            <Button variant="contained" color="primary" fullWidth onClick={handlePlaceOrder}>
-                                Proceed to Place orders
-                            </Button>
+                        cart.length == 0 ? (
+
+                         
+                              <Button variant="contained" color="primary" fullWidth onClick={handleBack} disabled={!cartItems || cartItems.lenght == 0}>
+                              Add Items
+                          </Button>
                         ) : (
-                            <Button variant="contained" color="primary" fullWidth onClick={handleBack}>
-                                Add Items
-                            </Button>
+                            <Button variant="contained" color="primary" fullWidth onClick={handlePlaceOrder} disabled={!cartItems || cartItems.lenght == 0}>
+                            Proceed to Place orders
+                        </Button>
                         )
                     }
+
 
                 </Paper>
             </Container>

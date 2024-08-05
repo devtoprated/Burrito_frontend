@@ -1,1 +1,1 @@
-export const url = 'http://burrito-api.anviam.in:8500/api';
+export const url = 'http://burrito-api.anviam.in/api';
